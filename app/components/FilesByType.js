@@ -20,7 +20,6 @@ class FilesByType extends Component {
         {label: 'MP3', value: 10, color: '#BB00BB', highlight: '#FF00FF'}
       ],
       options: {
-        legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
       }
     }
   }
