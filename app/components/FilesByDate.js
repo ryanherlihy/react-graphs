@@ -47,22 +47,33 @@ class FilesByDate extends Component {
   }
 
   showSent() {
-    let points = this.chart.datasets[0].points;
-
-    for (let i = 0; i < points.length; i++) {
-      points[i].value = points[i].value + this.state.sentData[i];
-    }
-
-    this.chart.update();
+    this.setState({sentShowing: !this.state.sentShowing}, this.toggleSentReceived);
   }
 
   showReceived() {
+    this.setState({receivedShowing: !this.state.receivedShowing}, this.toggleSentReceived);
+  }
+
+  toggleSentReceived() {
     let points = this.chart.datasets[0].points;
 
-    for (let i = 0; i < points.length; i++) {
-      points[i].value = points[i].value + this.state.receivedData[i];
+    if (this.state.sentShowing && this.state.receivedShowing) {
+      for (let i = 0; i < points.length; i++) {
+        points[i].value = this.state.sentData[i] + this.state.receivedData[i];
+      }
+    } else if (this.state.sentShowing && !this.state.receivedShowing) {
+      for (let i = 0; i < points.length; i++) {
+        points[i].value = this.state.sentData[i];
+      }
+    } else if (!this.state.sentShowing && this.state.receivedShowing) {
+      for (let i = 0; i < points.length; i++) {
+        points[i].value = this.state.receivedData[i];
+      }
+    } else {
+      for (let i = 0; i < points.length; i++) {
+        points[i].value = 0;
+      }
     }
-
     this.chart.update();
   }
 
