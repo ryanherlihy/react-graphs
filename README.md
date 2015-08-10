@@ -2,8 +2,7 @@
 
 Project testing out graph and chart components using React.
 
-###
-Starting the App
+## Starting the App
 
 `npm run start`
 
