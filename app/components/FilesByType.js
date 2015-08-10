@@ -47,27 +47,23 @@ class FilesByType extends Component {
   render() {
     return (
       <div>
+        <div className='btn-group' data-toggle='buttons'>
+          <label className='btn btn-default'>
+            <input type='checkbox' />Sent
+          </label>
+          <label className='btn btn-default'>
+            <input type='checkbox' />Received
+          </label>
+        </div>
         <Doughnut
           data={this.state.data}
           options={this.state.options}
           ref='doughnut' />
-        <div className='row'>
-          <div className='btn-group' data-toggle='buttons'>
-            <label className='btn sent-received'>
-              Sent
-            </label>
-            <label className='btn btn-default'>
-              Received
-            </label>
-          </div>
-          <div className='col-sm-6'>
-            <div className='panel panel-default'>
-              <div className='panel-body'>
-                <input type='range' onChange={this.updateData}/>
-                <span className='pull-left'>Most Recent</span>
-                <span className='pull-right'>Oldest</span>
-              </div>
-            </div>
+        <div className='panel panel-default'>
+          <div className='panel-body'>
+            <input type='range' onChange={this.updateData}/>
+            <span className='pull-left'>Most Recent</span>
+            <span className='pull-right'>Oldest</span>
           </div>
         </div>
       </div>
