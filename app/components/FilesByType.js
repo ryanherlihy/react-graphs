@@ -14,14 +14,35 @@ class FilesByType extends Component {
 
     this.state = {
       data: [
-        {label: 'PDF', value: 20, color: '#0000BB', highlight: '#0000FF'},
-        {label: 'DOC', value: 40, color: '#BB0000', highlight: '#FF0000'},
+        {label: 'PDF', value: 20, color: '#FF0000', highlight: '#FF6666'},
+        {label: 'DOC', value: 40, color: '#00A1F1', highlight: '#66A1F1'},
         {label: 'JPG', value: 30, color: '#00BB00', highlight: '#00FF00'},
         {label: 'MP3', value: 10, color: '#BB00BB', highlight: '#FF00FF'}
+      ],
+      data2: [
+        {label: 'PDF', value: 30, color: '#FF0000', highlight: '#FF6666'},
+        {label: 'DOC', value: 20, color: '#00A1F1', highlight: '#66A1F1'},
+        {label: 'JPG', value: 60, color: '#00BB00', highlight: '#00FF00'},
+        {label: 'MP3', value: 5, color: '#BB00BB', highlight: '#FF00FF'}
       ],
       options: {
       }
     }
+    this.chart;
+
+    this.updateData = this.updateData.bind(this);
+  }
+
+  componentDidMount() {
+    this.chart = this.refs.doughnut.getChart();
+
+  }
+
+  updateData(e) {
+    for (let i = 0; i < this.chart.segments.length; i++) {
+      this.chart.segments[i].value = Math.random() * e.target.value;
+    }
+    this.chart.update();
   }
 
   render() {
@@ -29,7 +50,8 @@ class FilesByType extends Component {
       <div>
         <Doughnut
           data={this.state.data}
-          options={this.state.options} />
+          options={this.state.options}
+          ref='doughnut' />
         <div>
           <input type='checkbox' />
           <span>Sent</span>
@@ -38,7 +60,7 @@ class FilesByType extends Component {
         </div>
         <div className='panel panel-default'>
           <div className='panel-body'>
-            <input type='range' />
+            <input type='range' onChange={this.updateData}/>
             <span className='pull-left'>Most Recent</span>
             <span className='pull-right'>Oldest</span>
           </div>
