@@ -35,12 +35,11 @@ class FilesByType extends Component {
 
   componentDidMount() {
     this.chart = this.refs.doughnut.getChart();
-
   }
 
   updateData(e) {
     for (let i = 0; i < this.chart.segments.length; i++) {
-      this.chart.segments[i].value = Math.random() * e.target.value;
+      this.chart.segments[i].value = Math.round(Math.random() * e.target.value);
     }
     this.chart.update();
   }
@@ -52,17 +51,23 @@ class FilesByType extends Component {
           data={this.state.data}
           options={this.state.options}
           ref='doughnut' />
-        <div>
-          <input type='checkbox' />
-          <span>Sent</span>
-          <input type='checkbox' />
-          <span>Received</span>
-        </div>
-        <div className='panel panel-default'>
-          <div className='panel-body'>
-            <input type='range' onChange={this.updateData}/>
-            <span className='pull-left'>Most Recent</span>
-            <span className='pull-right'>Oldest</span>
+        <div className='row'>
+          <div className='btn-group' data-toggle='buttons'>
+            <label className='btn sent-received'>
+              Sent
+            </label>
+            <label className='btn btn-default'>
+              Received
+            </label>
+          </div>
+          <div className='col-sm-6'>
+            <div className='panel panel-default'>
+              <div className='panel-body'>
+                <input type='range' onChange={this.updateData}/>
+                <span className='pull-left'>Most Recent</span>
+                <span className='pull-right'>Oldest</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

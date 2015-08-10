@@ -31,12 +31,25 @@ class TopFiveDomains extends Component {
     }
   }
 
+  componentDidMount() {
+    let barArray = this.refs.bar.getChart().datasets[0].bars;
+    barArray = barArray.map((bar) => {
+      if (bar.label === 'Facebook') {
+        bar.fillColor = '#3b5998';
+        return(bar);
+      } else {
+        return(bar);
+      }
+    });
+  }
+
   render() {
     return (
       <div>
         <Bar
           data={this.state.data}
-          options={this.state.options} />
+          options={this.state.options}
+          ref='bar' />
       </div>
     )
   }

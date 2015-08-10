@@ -7,3 +7,9 @@ canvas {
 .container {
   padding-top: 20px;
 }
+
+.sent-received {
+  background-color: #EEEEFF;
+  border-bottom-width: thin;
+  border-bottom-color: #FCCCFF;
+}
