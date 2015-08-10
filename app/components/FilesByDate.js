@@ -56,6 +56,16 @@ class FilesByDate extends Component {
     this.chart.update();
   }
 
+  showReceived() {
+    let points = this.chart.datasets[0].points;
+
+    for (let i = 0; i < points.length; i++) {
+      points[i].value = points[i].value + this.state.receivedData[i];
+    }
+
+    this.chart.update();
+  }
+
   render() {
     return (
       <div>
