@@ -24,20 +24,54 @@ class FilesByDate extends Component {
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [65, 59, 80, 81, 56, 75]
+            data: [0,0,0,0,0,0]
           }
         ]
       },
+      sentData: [30, 13, 60, 31, 22, 35],
+      receivedData: [25, 56, 20, 50, 34, 40],
       options: {
-      }
+      },
+      sentShowing: false,
+      receivedShowing: false
     }
+
+    this.chart;
+
+    this.showSent = this.showSent.bind(this);
+  }
+
+  componentDidMount() {
+    this.chart = this.refs.line.getChart();
+    window.chart = this.chart;
+  }
+
+  showSent() {
+    let points = this.chart.datasets[0].points;
+
+    for (let i = 0; i < points.length; i++) {
+      points[i].value = points[i].value + this.state.sentData[i];
+    }
+
+    this.chart.update();
   }
 
   render() {
     return (
-      <Line
-        data={this.state.data}
-        options={this.state.options} />
+      <div>
+        <div className='btn-group' data-toggle='buttons'>
+          <label className='btn btn-default' onClick={this.showSent.bind(this)}>
+            <input type='checkbox' />Sent
+          </label>
+          <label className='btn btn-default' onClick={this.showReceived.bind(this)}>
+            <input type='checkbox' />Received
+          </label>
+        </div>
+        <Line
+          data={this.state.data}
+          options={this.state.options}
+          ref='line' />
+      </div>
     )
   }
 }

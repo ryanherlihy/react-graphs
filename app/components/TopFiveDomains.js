@@ -25,12 +25,16 @@ class TopFiveDomains extends Component {
       options: {
       }
     }
+
+    this.chart;
     this.bars;
 
     this.renderCompanyColors = this.renderCompanyColors.bind(this);
+    this.updateData = this.updateData.bind(this);
   }
 
   componentDidMount() {
+    this.chart = this.refs.bar.getChart();
     this.bars = this.refs.bar.getChart().datasets[0].bars;
     this.renderCompanyColors();
   }
@@ -75,13 +79,35 @@ class TopFiveDomains extends Component {
     });
   }
 
+  updateData(e) {
+    for (let i = 0; i < this.bars.length; i++) {
+      this.bars[i].value = Math.round(Math.random() * 100);
+    }
+    this.chart.update();
+  }
+
   render() {
     return (
       <div>
+        <div className='btn-group' data-toggle='buttons'>
+          <label className='btn btn-default'>
+            <input type='checkbox' />Sent
+          </label>
+          <label className='btn btn-default'>
+            <input type='checkbox' />Received
+          </label>
+        </div>
         <Bar
           data={this.state.data}
           options={this.state.options}
           ref='bar' />
+        <div className='panel panel-default'>
+          <div className='panel-body'>
+            <input type='range' onChange={this.updateData}/>
+            <span className='pull-left'>Most Recent</span>
+            <span className='pull-right'>Oldest</span>
+          </div>
+        </div>
       </div>
     )
   }
